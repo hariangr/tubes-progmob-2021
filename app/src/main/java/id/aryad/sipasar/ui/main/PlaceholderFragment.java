@@ -71,7 +71,7 @@ public class PlaceholderFragment extends Fragment {
         entahBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AuthRepository.getInstance().logout();
+                AuthRepository.getInstance().logout(getActivity());
                 Intent _intent = new Intent(getActivity(), LoginActivity.class);
                 startActivity(_intent);
                 getActivity().finish();

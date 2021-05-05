@@ -1,11 +1,15 @@
 package id.aryad.sipasar.repositories;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import id.aryad.sipasar.constants.PrefKey;
 import id.aryad.sipasar.models.Admin;
 import id.aryad.sipasar.models.AdminRole;
 
@@ -15,20 +19,33 @@ public class AuthRepository {
             new Admin(1, 0, "something", "password", AdminRole.MANAGER, 1)
     ));
 
-    Admin currentAdmin = null;
+    public Admin getCurrentAdmin(Context context) {
+        Log.v("Apalah", "something");
+        SharedPreferences _pref = PreferenceManager.getDefaultSharedPreferences(context);
+        int _adminid = _pref.getInt(PrefKey.CUR_USER_ID, -1);
 
-    public Admin getCurrentAdmin() {
-        return currentAdmin;
+        if (_adminid == -1) {
+            return null;
+        }
+
+        Log.v("Apalah", String.valueOf(_adminid));
+        Admin _admin = getAdminById(_adminid);
+        return _admin;
     }
 
     public void register(String username, String password) {
 //        adminDatasets.add(new Admin());
     }
 
-    public Admin login(String username, String password) {
+    public Admin login(Context context, String username, String password) {
+        SharedPreferences _pref = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor _editor = _pref.edit();
+
         for (Admin it : adminDatasets) {
             if (it.getUsername().equalsIgnoreCase(username) && it.getPassword().equals(password)) {
-                currentAdmin = it;
+                _editor.putInt(PrefKey.CUR_USER_ID, it.getId_admin());
+                _editor.apply();
+                Log.v("Apalah", "ditambahkan");
                 return it;
             }
         }
@@ -36,8 +53,9 @@ public class AuthRepository {
         return null;
     }
 
-    public void logout() {
-        currentAdmin = null;
+    public void logout(Context context) {
+        SharedPreferences _pref = PreferenceManager.getDefaultSharedPreferences(context);
+        _pref.edit().remove(PrefKey.CUR_USER_ID).apply();
     }
 
     public Admin getAdminById(int id) {

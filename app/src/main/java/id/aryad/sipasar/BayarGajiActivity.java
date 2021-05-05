@@ -102,8 +102,8 @@ public class BayarGajiActivity extends AppCompatActivity {
 //        } else {
 //            username = "Gagal Login";
 //        }
-        String username = AuthRepository.getInstance().getCurrentAdmin().getUsername();
+//        String username = AuthRepository.getInstance().getCurrentAdmin(getApplicationContext()).getUsername();
 
-        activityTitle.setText("Gaji " + month_name + ", " + String.valueOf(selectedYear) + " (" + username + ")");
+//        activityTitle.setText("Gaji " + month_name + ", " + String.valueOf(selectedYear) + " (" + username + ")");
     }
 }

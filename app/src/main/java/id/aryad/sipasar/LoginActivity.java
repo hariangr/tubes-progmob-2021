@@ -2,8 +2,11 @@ package id.aryad.sipasar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -29,6 +32,15 @@ public class LoginActivity extends AppCompatActivity {
         passwordET = (EditText) findViewById(R.id.passwordET);
         btnLogin = (Button) findViewById(R.id.btnLogin);
 
+        // Cek jika sudah login
+        Admin curUser = AuthRepository.getInstance().getCurrentAdmin(getApplicationContext());
+        if (curUser != null) {
+            // Ada yg sedang login
+            Intent _intent = new Intent(getApplicationContext(), BayarGajiActivity.class);
+            startActivity(_intent);
+            finish();
+        }
+
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -36,7 +48,7 @@ public class LoginActivity extends AppCompatActivity {
                 String _password = passwordET.getText().toString();
 
                 AuthRepository _auth = AuthRepository.getInstance();
-                Admin tryLogin = _auth.login(_username, _password);
+                Admin tryLogin = _auth.login(getApplicationContext(), _username, _password);
 
                 if (tryLogin == null) {
                     // Gagal login
@@ -52,7 +64,6 @@ public class LoginActivity extends AppCompatActivity {
 
                 // Berhasil login
                 Intent _intent = new Intent(getApplicationContext(), BayarGajiActivity.class);
-                _intent.putExtra(IntentKey.CURRENT_ADMIN_ID, tryLogin.getId_admin());
                 startActivity(_intent);
                 finish();
             }
