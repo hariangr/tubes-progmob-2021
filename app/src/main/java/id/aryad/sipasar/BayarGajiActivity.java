@@ -95,13 +95,14 @@ public class BayarGajiActivity extends AppCompatActivity {
 
     void updateSelectedMonth() {
         String month_name = (String)android.text.format.DateFormat.format("MMMM", new Date());
-        int id_admin = getIntent().getIntExtra(IntentKey.CURRENT_ADMIN_ID, -1);
-        String username;
-        if (id_admin != -1) {
-            username = AuthRepository.getInstance().getAdminById(id_admin).getUsername();
-        } else {
-            username = "Gagal Login";
-        }
+//        int id_admin = getIntent().getIntExtra(IntentKey.CURRENT_ADMIN_ID, -1);
+//        String username;
+//        if (id_admin != -1) {
+//            username = AuthRepository.getInstance().getAdminById(id_admin).getUsername();
+//        } else {
+//            username = "Gagal Login";
+//        }
+        String username = AuthRepository.getInstance().getCurrentAdmin().getUsername();
 
         activityTitle.setText("Gaji " + month_name + ", " + String.valueOf(selectedYear) + " (" + username + ")");
     }

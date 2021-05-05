@@ -15,14 +15,29 @@ public class AuthRepository {
             new Admin(1, 0, "something", "password", AdminRole.MANAGER, 1)
     ));
 
+    Admin currentAdmin = null;
+
+    public Admin getCurrentAdmin() {
+        return currentAdmin;
+    }
+
+    public void register(String username, String password) {
+//        adminDatasets.add(new Admin());
+    }
+
     public Admin login(String username, String password) {
         for (Admin it : adminDatasets) {
             if (it.getUsername().equalsIgnoreCase(username) && it.getPassword().equals(password)) {
+                currentAdmin = it;
                 return it;
             }
         }
 
         return null;
+    }
+
+    public void logout() {
+        currentAdmin = null;
     }
 
     public Admin getAdminById(int id) {

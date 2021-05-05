@@ -1,6 +1,7 @@
 package id.aryad.sipasar.ui.main;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +16,11 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import id.aryad.sipasar.BayarGajiActivity;
+import id.aryad.sipasar.LoginActivity;
 import id.aryad.sipasar.R;
+import id.aryad.sipasar.constants.IntentKey;
+import id.aryad.sipasar.repositories.AuthRepository;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -61,6 +66,17 @@ public class PlaceholderFragment extends Fragment {
             }
         });
 
+
+        entahBtn = (Button) root.findViewById(R.id.entahBtn);
+        entahBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AuthRepository.getInstance().logout();
+                Intent _intent = new Intent(getActivity(), LoginActivity.class);
+                startActivity(_intent);
+                getActivity().finish();
+            }
+        });
 
         return root;
     }
