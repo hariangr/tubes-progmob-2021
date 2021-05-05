@@ -1,9 +1,12 @@
 package id.aryad.sipasar.ui.main;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -23,6 +26,8 @@ public class PlaceholderFragment extends Fragment {
 
     private PageViewModel pageViewModel;
 
+    Button entahBtn;
+
     public static PlaceholderFragment newInstance(int index) {
         PlaceholderFragment fragment = new PlaceholderFragment();
         Bundle bundle = new Bundle();
@@ -40,6 +45,7 @@ public class PlaceholderFragment extends Fragment {
             index = getArguments().getInt(ARG_SECTION_NUMBER);
         }
         pageViewModel.setIndex(index);
+
     }
 
     @Override
@@ -54,6 +60,8 @@ public class PlaceholderFragment extends Fragment {
                 textView.setText(s);
             }
         });
+
+
         return root;
     }
 }

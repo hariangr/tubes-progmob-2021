@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import id.aryad.sipasar.constants.IntentKey;
 import id.aryad.sipasar.models.Admin;
+import id.aryad.sipasar.models.AdminRole;
 import id.aryad.sipasar.repositories.AuthRepository;
 
 public class LoginActivity extends AppCompatActivity {
@@ -40,6 +41,12 @@ public class LoginActivity extends AppCompatActivity {
                 if (tryLogin == null) {
                     // Gagal login
                     Toast.makeText(getApplicationContext(), "Username/password salah", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (tryLogin.getRole() != AdminRole.MANAGER) {
+                    // Salah role
+                    Toast.makeText(getApplicationContext(), "Anda bukan manager", Toast.LENGTH_SHORT).show();
                     return;
                 }
 

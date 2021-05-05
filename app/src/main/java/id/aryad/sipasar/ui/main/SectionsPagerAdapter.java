@@ -15,8 +15,6 @@ import id.aryad.sipasar.R;
  * one of the sections/tabs/pages.
  */
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
-
-    @StringRes
     private static final String[] TAB_TITLES = new String[]{"Belum Dibayar", "Terbayar"};
     private final Context mContext;
 
@@ -41,6 +39,6 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     @Override
     public int getCount() {
         // Show 2 total pages.
-        return 2;
+        return TAB_TITLES.length;
     }
 }

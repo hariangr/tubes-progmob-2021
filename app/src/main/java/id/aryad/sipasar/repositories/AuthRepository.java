@@ -11,7 +11,8 @@ import id.aryad.sipasar.models.AdminRole;
 
 public class AuthRepository {
     private ArrayList<Admin> adminDatasets = new ArrayList(Arrays.asList(
-            new Admin(0, 0, "hariangr", "password", AdminRole.ADMIN, 1)
+            new Admin(0, 0, "hariangr", "password", AdminRole.ADMIN, 1),
+            new Admin(1, 0, "something", "password", AdminRole.MANAGER, 1)
     ));
 
     public Admin login(String username, String password) {
