@@ -13,7 +13,7 @@
             android:name=".BayarGajiActivity"
             android:label="@string/title_activity_bayar_gaji"
             android:theme="@style/Theme.PembayaranGaji.NoActionBar"></activity>
-        <activity android:name=".LoginActivity">
+        <activity android:name=".LoginActivity" android:label="Sipasar Login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

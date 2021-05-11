@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Pembayaran Gaji</string>
+    <string name="app_name">Bayar Gaji</string>
     <string name="title_activity_bayar_gaji">BayarGaji</string>
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>
