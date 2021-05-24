@@ -15,8 +15,9 @@ import id.aryad.sipasar.models.AdminRole;
 
 public class AuthRepository {
     private ArrayList<Admin> adminDatasets = new ArrayList(Arrays.asList(
-            new Admin(0, 0, "hariangr", "password", AdminRole.ADMIN, 1),
-            new Admin(1, 0, "something", "password", AdminRole.MANAGER, 1)
+            new Admin(0, 0, "aryapegawai", "pass123", AdminRole.PEGAWAI, 1),
+            new Admin(1, 1, "aryaadmin", "pass123", AdminRole.ADMIN, 1),
+            new Admin(2, 2, "aryamanager", "pass123", AdminRole.MANAGER, 1)
     ));
 
     public Admin getCurrentAdmin(Context context) {

@@ -1,41 +1,38 @@
 package id.aryad.sipasar;
 
 import android.app.DatePickerDialog;
-import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.view.ContextMenu;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
 
-import id.aryad.sipasar.constants.IntentKey;
-import id.aryad.sipasar.repositories.AuthRepository;
+import id.aryad.sipasar.constants.MonthNames;
+import id.aryad.sipasar.repositories.DateHelperRepository;
+import id.aryad.sipasar.ui.dialog.YearMonthDialog;
 import id.aryad.sipasar.ui.main.SectionsPagerAdapter;
 
 public class BayarGajiActivity extends AppCompatActivity {
-    int selectedMonth = Calendar.getInstance().get(Calendar.MONTH);
-    int selectedYear = Calendar.getInstance().get(Calendar.YEAR);
+    private int selectedMonth = DateHelperRepository.getInstance().getCurrentMonthNumber();
+    private int selectedYear = DateHelperRepository.getInstance().getCurrentYear();
 
-    TextView activityTitle;
-    Button btnSelectRange;
+    private Button yearMonthIndicator;
+
+    public void updateYearMonthIndicator() {
+        yearMonthIndicator.setText(MonthNames.Bahasa[selectedMonth - 1] + " " + selectedYear);
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,14 +43,27 @@ public class BayarGajiActivity extends AppCompatActivity {
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
-        FloatingActionButton fab = findViewById(R.id.fab);
 
-        fab.setOnClickListener(new View.OnClickListener() {
+        yearMonthIndicator = (Button) findViewById(R.id.yearMonthIndicator);
+
+        yearMonthIndicator.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                YearMonthDialog pd = new YearMonthDialog(selectedMonth, selectedYear, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        Log.v("Entah", String.valueOf(year) + " " + String.valueOf(month) + " " + String.valueOf(dayOfMonth));
+                        selectedMonth = month;
+                        selectedYear = year;
+                        updateYearMonthIndicator();
+                    }
+                });
+
+                pd.show(getSupportFragmentManager(), "Year Month Picker");
             }
         });
+
+
+        updateYearMonthIndicator();
     }
 }
