@@ -4,9 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 
+import id.aryad.sipasar.constants.IntentKey;
 import id.aryad.sipasar.models.Pegawai;
 import id.aryad.sipasar.repositories.PegawaiRepository;
 import id.aryad.sipasar.ui.adapter.PegawaiRecyclerView;
@@ -27,8 +31,11 @@ public class AturGajiActivity extends AppCompatActivity {
         pegawaiAdapter = new PegawaiRecyclerView(PegawaiRepository.getInstance().getAll(), new PegawaiRecyclerViewCallback() {
             @Override
             public void onEditClicked(Pegawai pegawai, int position) {
-                PegawaiRepository.getInstance().deleteById(pegawai.getId_pegawai());
-                pegawaiAdapter.notifyDataSetChanged();
+//                PegawaiRepository.getInstance().deleteById(pegawai.getId_pegawai());
+//                pegawaiAdapter.notifyDataSetChanged();
+                Intent _intent = new Intent(getApplicationContext(),DetailHistoryGajiActivity.class);
+                _intent.putExtra(IntentKey.ID_PEGAWAI_DETAIL_ACTIVITY, pegawai.getId_pegawai());
+                startActivity(_intent);
             }
 
             @Override
@@ -41,4 +48,10 @@ public class AturGajiActivity extends AppCompatActivity {
         pegawaiRecyclerView.setLayoutManager(layoutManager);
         pegawaiRecyclerView.setAdapter(pegawaiAdapter);
     }
+
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        MenuInflater inflater = getMenuInflater();
+//        inflater.inflate(R.menu.bayar_gaji_cmenu, menu);
+//        return true;
+//    }
 }

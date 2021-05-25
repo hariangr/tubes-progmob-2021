@@ -10,9 +10,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PembayaranGaji">
         <activity
+            android:label="Detail Histori Gaji"
+            android:name=".DetailHistoryGajiActivity"
+            android:parentActivityName=".AturGajiActivity"></activity>
+        <activity android:name=".AddHistoryGajiActivity" />
+        <activity
             android:name=".AturGajiActivity"
             android:label="Atur Gaji"
-            android:parentActivityName=".BayarGajiActivity"></activity>
+            android:parentActivityName=".BayarGajiActivity" />
         <activity
             android:name=".BayarGajiActivity"
             android:label="@string/title_activity_bayar_gaji"

@@ -11,7 +11,7 @@ public class HistoryGajiRepository {
     private ArrayList<HistoryGajiPegawai> historyGaji = new ArrayList(Arrays.asList(
             new HistoryGajiPegawai(0, 0, 3000000, new Date(2021, 5, 1), new Date(2021, 5, 4), 0),
             new HistoryGajiPegawai(1, 0, 3500000, new Date(2021, 5, 5), null, 1),
-            new HistoryGajiPegawai(2, 1, 2500000, new Date(2021, 5, 1), null, 1),
+            new HistoryGajiPegawai(2, 1, 2500000, new Date(2021, 5, 1), new Date(2021, 5, 2), 1),
             new HistoryGajiPegawai(3, 2, 2200000, new Date(2021, 5, 1), null, 1)
     ));
 
@@ -27,6 +27,19 @@ public class HistoryGajiRepository {
             }
         }
         return temp;
+    }
+
+    public  HistoryGajiPegawai getCurrentHistoryGajiByPegawaiId(int pegawai_id) {
+        for (HistoryGajiPegawai it : getHistoryGajiByPegawaiId(pegawai_id)) {
+            if (it.getMulai_berlaku().after(new Date()) && it.getStatus() >= 1) {
+                if (it.getSelesai() != null && it.getSelesai().after(new Date())) {
+                    return null;
+                }
+                return it;
+            }
+        }
+
+        return null;
     }
 
     public HistoryGajiPegawai byId(int id) {
