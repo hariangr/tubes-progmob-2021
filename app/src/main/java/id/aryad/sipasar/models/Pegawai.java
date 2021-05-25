@@ -12,4 +12,20 @@ public class Pegawai {
         Alamat = alamat;
         Foto = foto;
     }
+
+    public int getId_pegawai() {
+        return Id_pegawai;
+    }
+
+    public String getNama_pegawai() {
+        return Nama_pegawai;
+    }
+
+    public String getAlamat() {
+        return Alamat;
+    }
+
+    public String getFoto() {
+        return Foto;
+    }
 }

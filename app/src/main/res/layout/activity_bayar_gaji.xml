@@ -33,9 +33,16 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_weight="1"
-                android:text="-"
-                android:textAlignment="textEnd" />
+                android:text="-" />
 
+            <Button
+                android:id="@+id/openAturgajiBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="Atur Gaji"
+                />
         </LinearLayout>
 
         <com.google.android.material.tabs.TabLayout

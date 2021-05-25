@@ -9,10 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PembayaranGaji">
+        <activity android:name=".AturGajiActivity" android:label="Atur Gaji"></activity>
         <activity
             android:name=".BayarGajiActivity"
             android:label="@string/title_activity_bayar_gaji"
-            android:theme="@style/Theme.PembayaranGaji.NoActionBar"></activity>
+            android:theme="@style/Theme.PembayaranGaji.NoActionBar" />
         <activity
             android:name=".LoginActivity"
             android:label="Sipasar Login">
