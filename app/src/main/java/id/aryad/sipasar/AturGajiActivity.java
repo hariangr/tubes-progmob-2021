@@ -36,6 +36,7 @@ public class AturGajiActivity extends AppCompatActivity {
                 Intent _intent = new Intent(getApplicationContext(),DetailHistoryGajiActivity.class);
                 _intent.putExtra(IntentKey.ID_PEGAWAI_DETAIL_ACTIVITY, pegawai.getId_pegawai());
                 startActivity(_intent);
+                finish();
             }
 
             @Override

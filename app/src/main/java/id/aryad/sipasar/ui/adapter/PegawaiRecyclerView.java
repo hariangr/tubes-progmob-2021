@@ -14,6 +14,7 @@ import id.aryad.sipasar.R;
 import id.aryad.sipasar.models.HistoryGajiPegawai;
 import id.aryad.sipasar.models.Pegawai;
 import id.aryad.sipasar.repositories.HistoryGajiRepository;
+import id.aryad.sipasar.repositories.NumberHelperRepository;
 
 public class PegawaiRecyclerView extends RecyclerView.Adapter<PegawaiRecyclerView.ViewHolder> {
     private PegawaiRecyclerViewCallback _callback;
@@ -70,7 +71,7 @@ public class PegawaiRecyclerView extends RecyclerView.Adapter<PegawaiRecyclerVie
 
         HistoryGajiPegawai currentGaji = HistoryGajiRepository.getInstance().getCurrentHistoryGajiByPegawaiId(pegawai.getId_pegawai());
         if (currentGaji != null) {
-            viewHolder.getGajiTV().setText("Rp. " + String.valueOf(currentGaji.getNilai_gaji()) + ", -");
+            viewHolder.getGajiTV().setText(NumberHelperRepository.getInstance().asRpString(currentGaji.getNilai_gaji()));
         } else {
             viewHolder.getGajiTV().setText("Tidak ada periode gaji aktif");
         }

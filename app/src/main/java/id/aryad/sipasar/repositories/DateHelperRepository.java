@@ -12,9 +12,18 @@ public class DateHelperRepository {
     }
 
     public int getCurrentMonthNumber() {
-        // 1 adalah januari, 12 adalah desember
+        // 0 adalah januari, 11 adalah desember
         Calendar cal = Calendar.getInstance();
         return cal.get(Calendar.MONTH);
+    }
+
+    public int getCurrentDateNumber() {
+        Calendar cal = Calendar.getInstance();
+        return cal.get(Calendar.DATE);
+    }
+
+    public Date getCurrentDate() {
+        return new Date(getCurrentYear(), getCurrentMonthNumber(), getCurrentDateNumber());
     }
 
     public String getFriendlyDate(Date date) {

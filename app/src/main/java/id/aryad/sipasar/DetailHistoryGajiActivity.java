@@ -34,6 +34,19 @@ public class DetailHistoryGajiActivity extends AppCompatActivity {
 
     Pegawai pegawai;
 
+    private void _updatePegawaiInfo() {
+
+        namaPegawaiET.getEditText().setText(pegawai.getNama_pegawai());
+
+        HistoryGajiPegawai gajiAktif = HistoryGajiRepository.getInstance().getCurrentHistoryGajiByPegawaiId(pegawai.getId_pegawai());
+        if (gajiAktif == null ) {
+            currentGajiET.getEditText().setText("Tidak ada gaji aktif");
+        } else {
+            int nilaiGajiAktif = gajiAktif.getNilai_gaji();
+            currentGajiET.getEditText().setText(NumberHelperRepository.getInstance().asRpString(nilaiGajiAktif, false));
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,15 +62,7 @@ public class DetailHistoryGajiActivity extends AppCompatActivity {
 
         pegawai = PegawaiRepository.getInstance().byId(pegawai_id_intent);
 
-        namaPegawaiET.getEditText().setText(pegawai.getNama_pegawai());
-
-        HistoryGajiPegawai gajiAktif = HistoryGajiRepository.getInstance().getCurrentHistoryGajiByPegawaiId(pegawai.getId_pegawai());
-        if (gajiAktif == null ) {
-            currentGajiET.getEditText().setText("Tidak ada gaji aktif");
-        } else {
-            int nilaiGajiAktif = gajiAktif.getNilai_gaji();
-            currentGajiET.getEditText().setText(NumberHelperRepository.getInstance().asRpString(nilaiGajiAktif, false));
-        }
+        _updatePegawaiInfo();
 
         hgajiRecyclerView = (RecyclerView) findViewById(R.id.activity_detail_history_gaji_recycler_view);
         hgajiAdapter = new HistoryGajiRecyclerView(HistoryGajiRepository.getInstance().getHistoryGajiByPegawaiId(pegawai_id_intent), new HistoryGajiRecyclerViewCallback() {
@@ -70,6 +75,7 @@ public class DetailHistoryGajiActivity extends AppCompatActivity {
             public void onDeleteClicked(HistoryGajiPegawai gaji, int position) {
                 HistoryGajiRepository.getInstance().markInactiveById(gaji.getId_history_gaji_pegawai());
                 hgajiAdapter.notifyDataSetChanged();
+                _updatePegawaiInfo();
             }
         });
 
@@ -96,7 +102,9 @@ public class DetailHistoryGajiActivity extends AppCompatActivity {
                 finish();
                 break;
             case android.R.id.home:
-                this.finish();
+                Intent _intentAturGaji = new Intent(getApplicationContext(), AturGajiActivity.class);
+                startActivity(_intentAturGaji);
+                finish();
         }
         return true;
     }

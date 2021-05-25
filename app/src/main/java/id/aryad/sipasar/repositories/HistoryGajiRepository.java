@@ -63,6 +63,18 @@ public class HistoryGajiRepository {
         }
     }
 
+    public void markAllInactiveByPegawaiId(int pegawai_id) {
+        for (int i = 0; i < historyGaji.size(); i++) {
+            HistoryGajiPegawai it = historyGaji.get(i);
+            if (it.getId_pegawai() == pegawai_id) {
+                historyGaji.get(i).setStatus(0);
+                if (it.getSelesai() == null) {
+                    historyGaji.get(i).setSelesai(new Date());
+                }
+            }
+        }
+    }
+
     public void deleteById(int id) {
         for (int i = 0; i < historyGaji.size(); i++) {
             HistoryGajiPegawai it = historyGaji.get(i);
@@ -75,6 +87,7 @@ public class HistoryGajiRepository {
     public HistoryGajiPegawai create(int id_pegawai, int nilai_gaji, Date mulai_berlaku, Date
             selesai_berlaku, int status) {
         HistoryGajiPegawai _new = new HistoryGajiPegawai(historyGaji.size(), id_pegawai, nilai_gaji, mulai_berlaku, selesai_berlaku, status);
+        historyGaji.add(_new);
         return _new;
     }
 
