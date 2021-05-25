@@ -23,6 +23,7 @@ import android.widget.TextView;
 import java.util.Calendar;
 
 import id.aryad.sipasar.constants.MonthNames;
+import id.aryad.sipasar.repositories.AuthRepository;
 import id.aryad.sipasar.repositories.DateHelperRepository;
 import id.aryad.sipasar.ui.dialog.YearMonthDialog;
 import id.aryad.sipasar.ui.main.SectionsPagerAdapter;
@@ -33,6 +34,7 @@ public class BayarGajiActivity extends AppCompatActivity {
 
     private Button yearMonthIndicator;
     private Button aturGajiBtn;
+    private Button logoutBtn;
 
     public void updateYearMonthIndicator() {
         yearMonthIndicator.setText(MonthNames.Bahasa[selectedMonth - 1] + " " + selectedYear);
@@ -49,8 +51,6 @@ public class BayarGajiActivity extends AppCompatActivity {
         tabs.setupWithViewPager(viewPager);
 
         yearMonthIndicator = (Button) findViewById(R.id.yearMonthIndicator);
-        aturGajiBtn = (Button) findViewById(R.id.openAturgajiBtn);
-
         yearMonthIndicator.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -68,11 +68,23 @@ public class BayarGajiActivity extends AppCompatActivity {
             }
         });
 
+        aturGajiBtn = (Button) findViewById(R.id.openAturgajiBtn);
         aturGajiBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent _intent = new Intent(getApplicationContext(), AturGajiActivity.class);
                 startActivity(_intent);
+            }
+        });
+
+        logoutBtn = (Button ) findViewById(R.id.btnLogout);
+        logoutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AuthRepository.getInstance().logout(getApplicationContext());
+                Intent _intent = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(_intent);
+                finish();
             }
         });
 

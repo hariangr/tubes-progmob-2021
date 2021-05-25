@@ -20,8 +20,8 @@ public class PegawaiRepository {
             new Pegawai(2, "Arya as Manager", "Jln Something", "")
     ));
 
-    public Pegawai[] getAll() {
-        return pegawaiDatasets.toArray( new Pegawai[pegawaiDatasets.size()]);
+    public ArrayList<Pegawai> getAll() {
+        return pegawaiDatasets;
     }
 
     public Pegawai byId(int id) {
@@ -32,6 +32,15 @@ public class PegawaiRepository {
         }
 
         return null;
+    }
+
+    public void deleteById(int id) {
+        for (int i = 0; i < pegawaiDatasets.size(); i++) {
+            Pegawai it = pegawaiDatasets.get(i);
+            if (it.getId_pegawai() == id) {
+                pegawaiDatasets.remove(i);
+            }
+        }
     }
 
     public Pegawai create(String nama_pegawai, String alamat, String foto) {
