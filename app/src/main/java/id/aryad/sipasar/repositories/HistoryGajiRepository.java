@@ -51,6 +51,18 @@ public class HistoryGajiRepository {
         return null;
     }
 
+    public void markInactiveById(int id) {
+        for (int i = 0; i < historyGaji.size(); i++) {
+            HistoryGajiPegawai it = historyGaji.get(i);
+            if (it.getId_history_gaji_pegawai() == id) {
+                historyGaji.get(i).setStatus(0);
+                if (it.getSelesai() == null) {
+                    historyGaji.get(i).setSelesai(new Date());
+                }
+            }
+        }
+    }
+
     public void deleteById(int id) {
         for (int i = 0; i < historyGaji.size(); i++) {
             HistoryGajiPegawai it = historyGaji.get(i);

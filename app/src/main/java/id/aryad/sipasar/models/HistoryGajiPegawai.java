@@ -2,6 +2,8 @@ package id.aryad.sipasar.models;
 
 import java.util.Date;
 
+import id.aryad.sipasar.repositories.DateHelperRepository;
+
 public class HistoryGajiPegawai {
     int Id_history_gaji_pegawai;
     int Id_pegawai;
@@ -16,6 +18,22 @@ public class HistoryGajiPegawai {
 
     public int getId_pegawai() {
         return Id_pegawai;
+    }
+
+    public void setStatus(int status) {
+        Status = status;
+    }
+
+    public void setSelesai(Date selesai) {
+        Selesai = selesai;
+    }
+
+    public String getDateRangeFriendly() {
+        if (getSelesai() == null) {
+            return DateHelperRepository.getInstance().getFriendlyDate(getMulai_berlaku());
+        } else {
+            return DateHelperRepository.getInstance().getFriendlyDate(getMulai_berlaku()) + " - " + DateHelperRepository.getInstance().getFriendlyDate(getSelesai());
+        }
     }
 
     public int getNilai_gaji() {

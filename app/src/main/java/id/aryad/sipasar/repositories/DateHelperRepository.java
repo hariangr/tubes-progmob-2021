@@ -1,6 +1,9 @@
 package id.aryad.sipasar.repositories;
 
 import java.util.Calendar;
+import java.util.Date;
+
+import id.aryad.sipasar.constants.MonthNames;
 
 public class DateHelperRepository {
     public int getCurrentYear() {
@@ -12,6 +15,13 @@ public class DateHelperRepository {
         // 1 adalah januari, 12 adalah desember
         Calendar cal = Calendar.getInstance();
         return cal.get(Calendar.MONTH);
+    }
+
+    public String getFriendlyDate(Date date) {
+        String txt = String.valueOf(date.getDate());
+        txt += " " + MonthNames.Bahasa[date.getMonth()];
+        txt += " " + date.getYear();
+        return txt;
     }
 
     private static DateHelperRepository single_instance = null;

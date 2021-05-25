@@ -53,8 +53,6 @@ public class DetailHistoryGajiActivity extends AppCompatActivity {
             currentGajiET.getEditText().setText(NumberHelperRepository.getInstance().asRpString(nilaiGajiAktif, false));
         }
 
-
-
         hgajiRecyclerView = (RecyclerView) findViewById(R.id.activity_detail_history_gaji_recycler_view);
         hgajiAdapter = new HistoryGajiRecyclerView(HistoryGajiRepository.getInstance().getHistoryGajiByPegawaiId(pegawai_id_intent), new HistoryGajiRecyclerViewCallback() {
             @Override
@@ -64,12 +62,15 @@ public class DetailHistoryGajiActivity extends AppCompatActivity {
 
             @Override
             public void onDeleteClicked(HistoryGajiPegawai gaji, int position) {
-
+                HistoryGajiRepository.getInstance().markInactiveById(gaji.getId_history_gaji_pegawai());
+                hgajiAdapter.notifyDataSetChanged();
             }
         });
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         hgajiRecyclerView.setLayoutManager(layoutManager);
         hgajiRecyclerView.setAdapter(hgajiAdapter);
+
+        getSupportActionBar().setElevation(0);
     }
 }

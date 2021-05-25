@@ -85,7 +85,7 @@ public class HistoryGajiRecyclerView extends RecyclerView.Adapter<HistoryGajiRec
         } else {
             viewHolder.getStatusTV().setText("Nonaktif");
         }
-        viewHolder.getBerlakuTV().setText(gaji.getMulai_berlaku().toString());
+        viewHolder.getBerlakuTV().setText(gaji.getDateRangeFriendly());
 
         viewHolder.getDeleteBtn().setOnClickListener(new View.OnClickListener() {
             @Override
