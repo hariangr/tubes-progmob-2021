@@ -1,11 +1,16 @@
 package id.aryad.sipasar;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -27,6 +32,8 @@ public class DetailHistoryGajiActivity extends AppCompatActivity {
     private RecyclerView hgajiRecyclerView;
     private HistoryGajiRecyclerView hgajiAdapter;
 
+    Pegawai pegawai;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,13 +42,12 @@ public class DetailHistoryGajiActivity extends AppCompatActivity {
         namaPegawaiET = (TextInputLayout) findViewById(R.id.detail_activity_nama_pegawai);
         currentGajiET = (TextInputLayout) findViewById(R.id.detail_activity_current_gaji_pegawai);
 
-
         int pegawai_id_intent = getIntent().getIntExtra(IntentKey.ID_PEGAWAI_DETAIL_ACTIVITY, -1);
         if (pegawai_id_intent == -1) {
             throw new Error("Harus ada id yang di pass");
         }
 
-        Pegawai pegawai = PegawaiRepository.getInstance().byId(pegawai_id_intent);
+        pegawai = PegawaiRepository.getInstance().byId(pegawai_id_intent);
 
         namaPegawaiET.getEditText().setText(pegawai.getNama_pegawai());
 
@@ -73,4 +79,26 @@ public class DetailHistoryGajiActivity extends AppCompatActivity {
 
         getSupportActionBar().setElevation(0);
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.activity_history_gaji, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_history_gaji_add:
+                Intent _intent = new Intent(getApplicationContext(), AddHistoryGajiActivity.class);
+                _intent.putExtra(IntentKey.ID_PEGAWAI_ADD_HISTORY_GAJI_ACTIVITY, pegawai.getId_pegawai());
+                startActivity(_intent);
+                finish();
+                break;
+            case android.R.id.home:
+                this.finish();
+        }
+        return true;
+    }
+
 }

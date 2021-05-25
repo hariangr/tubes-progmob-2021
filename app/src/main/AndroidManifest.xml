@@ -13,7 +13,8 @@
             android:label="Detail Histori Gaji"
             android:name=".DetailHistoryGajiActivity"
             android:parentActivityName=".AturGajiActivity"></activity>
-        <activity android:name=".AddHistoryGajiActivity" />
+        <activity android:name=".AddHistoryGajiActivity"
+            android:parentActivityName=".DetailHistoryGajiActivity"/>
         <activity
             android:name=".AturGajiActivity"
             android:label="Atur Gaji"
