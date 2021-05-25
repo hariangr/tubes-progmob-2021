@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/menuChangeMonthYear"
-        android:icon="@drawable/ic_baseline_date_range_24"
-        android:title="Pilih Bulan/Tahun Gaji" />
+        android:id="@+id/menu_change_range"
+        android:title="Ubah Periode"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/menu_atur_gaji"
+        android:title="Atur Gaji" />
+    <item
+        android:id="@+id/menu_logout"
+        android:title="Logout" />
 </menu>

@@ -49,14 +49,14 @@ public class YearMonthDialog extends DialogFragment {
         yearPicker.setMinValue(MIN_YEAR);
         yearPicker.setMaxValue(MAX_YEAR);
 
-        monthPicker.setValue(_selectedMonth - 1); // Bulan dimulai dari 1, sedangkan index dimulai dari 0
+        monthPicker.setValue(_selectedMonth); // Bulan dimulai dari 1, sedangkan index dimulai dari 0
         yearPicker.setValue(_selectedYear);
 
         builder.setView(dialog)
                 .setPositiveButton("Pilih", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        listener.onDateSet(null, yearPicker.getValue(), monthPicker.getValue() + 1, 0);
+                        listener.onDateSet(null, yearPicker.getValue(), monthPicker.getValue(), 0);
                     }
                 })
                 .setNegativeButton("Tutup", new DialogInterface.OnClickListener() {

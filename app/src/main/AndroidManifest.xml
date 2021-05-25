@@ -20,8 +20,7 @@
             android:parentActivityName=".BayarGajiActivity" />
         <activity
             android:name=".BayarGajiActivity"
-            android:label="@string/title_activity_bayar_gaji"
-            android:theme="@style/Theme.PembayaranGaji.NoActionBar" />
+            android:label="@string/title_activity_bayar_gaji"/>
         <activity
             android:name=".LoginActivity"
             android:label="Sipasar Login">

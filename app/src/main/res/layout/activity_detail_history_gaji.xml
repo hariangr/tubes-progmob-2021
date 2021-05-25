@@ -13,37 +13,50 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#1058AF"
-            android:orientation="vertical"
-            android:padding="8dp">
+            android:orientation="vertical">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/detail_activity_nama_pegawai"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="8dp"
-                android:hint="Nama Pegawai">
+                android:layout_height="wrap_content"
+                android:background="@android:color/holo_blue_dark"
+                android:orientation="vertical"
+                android:padding="8dp">
 
-                <com.google.android.material.textfield.TextInputEditText
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/detail_activity_nama_pegawai"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:enabled="false" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="8dp"
+                    android:hint="Nama Pegawai">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/detail_activity_current_gaji_pegawai"
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:enabled="false" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/detail_activity_current_gaji_pegawai"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="8dp"
+                    android:hint="Nilai Gaji Aktif"
+                    app:prefixText="Rp. ">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:enabled="false"
+                        android:inputType="number" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/activity_detail_history_gaji_recycler_view"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="8dp"
-                android:hint="Nilai Gaji Aktif"
-                app:prefixText="Rp. ">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:enabled="false"
-                    android:inputType="number" />
-            </com.google.android.material.textfield.TextInputLayout>
+                android:layout_height="match_parent" />
         </LinearLayout>
     </ScrollView>
 

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     card_view:cardCornerRadius="6dp"
@@ -25,26 +26,37 @@
             android:orientation="vertical">
 
             <TextView
-                android:ellipsize="end"
-                android:id="@+id/row_pegawai_nilai"
+                android:id="@+id/row_history_gaji_nilai"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Nama Pegawai"
+                android:ellipsize="end"
+                android:text="Rp. 0000,-"
                 android:textSize="16sp"
                 android:textStyle="bold"></TextView>
 
             <TextView
-                android:id="@+id/row_pegawai_berlaku"
+                android:id="@+id/row_history_gaji_berlaku"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Gaji"></TextView>
+                android:text="28 Mei 2020 - 13 Mei 2020"></TextView>
+
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/row_history_gaji_status"
+            android:layout_width="64dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="TextView"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            tools:text="Aktif" />
+
         <ImageButton
-            android:id="@+id/row_pegawai_edit_btn"
+            android:id="@+id/row_history_gaji_delete_btn"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            card_view:srcCompat="@drawable/ic_baseline_edit_24" />
+            card_view:srcCompat="@drawable/ic_baseline_delete_24" />
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

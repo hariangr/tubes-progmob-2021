@@ -8,6 +8,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -36,8 +38,48 @@ public class BayarGajiActivity extends AppCompatActivity {
     private Button aturGajiBtn;
     private Button logoutBtn;
 
+    private MenuItem changeRange;
+    private Menu menu;
+
     public void updateYearMonthIndicator() {
-        yearMonthIndicator.setText(MonthNames.Bahasa[selectedMonth - 1] + " " + selectedYear);
+        this.setTitle("Gaji " + MonthNames.Bahasa[selectedMonth] + " " + selectedYear);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.bayar_gaji_cmenu, menu);
+        this.menu = menu;
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_atur_gaji:
+                Intent _intentAturGaji = new Intent(getApplicationContext(), AturGajiActivity.class);
+                startActivity(_intentAturGaji);
+                break;
+            case R.id.menu_change_range:
+                YearMonthDialog pd = new YearMonthDialog(selectedMonth, selectedYear, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        Log.v("Entah", String.valueOf(year) + " " + String.valueOf(month) + " " + String.valueOf(dayOfMonth));
+                        selectedMonth = month;
+                        selectedYear = year;
+                        updateYearMonthIndicator();
+                    }
+                });
+                pd.show(getSupportFragmentManager(), "Year Month Picker");
+                break;
+            case R.id.menu_logout:
+                AuthRepository.getInstance().logout(getApplicationContext());
+                Intent _intentAuth = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(_intentAuth);
+                finish();
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -50,44 +92,8 @@ public class BayarGajiActivity extends AppCompatActivity {
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
 
-        yearMonthIndicator = (Button) findViewById(R.id.yearMonthIndicator);
-        yearMonthIndicator.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                YearMonthDialog pd = new YearMonthDialog(selectedMonth, selectedYear, new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        Log.v("Entah", String.valueOf(year) + " " + String.valueOf(month) + " " + String.valueOf(dayOfMonth));
-                        selectedMonth = month;
-                        selectedYear = year;
-                        updateYearMonthIndicator();
-                    }
-                });
-
-                pd.show(getSupportFragmentManager(), "Year Month Picker");
-            }
-        });
-
-        aturGajiBtn = (Button) findViewById(R.id.openAturgajiBtn);
-        aturGajiBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent _intent = new Intent(getApplicationContext(), AturGajiActivity.class);
-                startActivity(_intent);
-            }
-        });
-
-        logoutBtn = (Button ) findViewById(R.id.btnLogout);
-        logoutBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AuthRepository.getInstance().logout(getApplicationContext());
-                Intent _intent = new Intent(getApplicationContext(), LoginActivity.class);
-                startActivity(_intent);
-                finish();
-            }
-        });
-
         updateYearMonthIndicator();
+        getSupportActionBar().setElevation(0);
+
     }
 }

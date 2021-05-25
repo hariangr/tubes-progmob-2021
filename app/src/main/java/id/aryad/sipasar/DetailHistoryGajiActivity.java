@@ -1,7 +1,10 @@
 package id.aryad.sipasar;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.textfield.TextInputLayout;
@@ -10,11 +13,19 @@ import id.aryad.sipasar.constants.IntentKey;
 import id.aryad.sipasar.models.HistoryGajiPegawai;
 import id.aryad.sipasar.models.Pegawai;
 import id.aryad.sipasar.repositories.HistoryGajiRepository;
+import id.aryad.sipasar.repositories.NumberHelperRepository;
 import id.aryad.sipasar.repositories.PegawaiRepository;
+import id.aryad.sipasar.ui.adapter.HistoryGajiRecyclerView;
+import id.aryad.sipasar.ui.adapter.HistoryGajiRecyclerViewCallback;
+import id.aryad.sipasar.ui.adapter.PegawaiRecyclerView;
+import id.aryad.sipasar.ui.adapter.PegawaiRecyclerViewCallback;
 
 public class DetailHistoryGajiActivity extends AppCompatActivity {
     private TextInputLayout namaPegawaiET;
     private TextInputLayout currentGajiET;
+
+    private RecyclerView hgajiRecyclerView;
+    private HistoryGajiRecyclerView hgajiAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +50,26 @@ public class DetailHistoryGajiActivity extends AppCompatActivity {
             currentGajiET.getEditText().setText("Tidak ada gaji aktif");
         } else {
             int nilaiGajiAktif = gajiAktif.getNilai_gaji();
-            currentGajiET.getEditText().setText(String.valueOf(nilaiGajiAktif));
+            currentGajiET.getEditText().setText(NumberHelperRepository.getInstance().asRpString(nilaiGajiAktif, false));
         }
+
+
+
+        hgajiRecyclerView = (RecyclerView) findViewById(R.id.activity_detail_history_gaji_recycler_view);
+        hgajiAdapter = new HistoryGajiRecyclerView(HistoryGajiRepository.getInstance().getHistoryGajiByPegawaiId(pegawai_id_intent), new HistoryGajiRecyclerViewCallback() {
+            @Override
+            public void onEditClicked(HistoryGajiPegawai gaji, int position) {
+
+            }
+
+            @Override
+            public void onDeleteClicked(HistoryGajiPegawai gaji, int position) {
+
+            }
+        });
+
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        hgajiRecyclerView.setLayoutManager(layoutManager);
+        hgajiRecyclerView.setAdapter(hgajiAdapter);
     }
 }
