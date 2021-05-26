@@ -2,6 +2,8 @@ package id.aryad.sipasar.models;
 
 import java.util.Date;
 
+import id.aryad.sipasar.repositories.PegawaiRepository;
+
 public class PembayaranGaji {
     int id_pembayaran_gaji;
     int id_pegawai;
@@ -10,6 +12,10 @@ public class PembayaranGaji {
 
     public int getId_pembayaran_gaji() {
         return id_pembayaran_gaji;
+    }
+
+    public Pegawai getPegawai() {
+        return PegawaiRepository.getInstance().byId(id_pegawai);
     }
 
     public int getId_pegawai() {

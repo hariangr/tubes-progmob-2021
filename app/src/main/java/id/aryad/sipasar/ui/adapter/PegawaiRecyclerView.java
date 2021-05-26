@@ -33,8 +33,8 @@ public class PegawaiRecyclerView extends RecyclerView.Adapter<PegawaiRecyclerVie
             super(view);
             // Define click listener for the ViewHolder's View
 
-            nameTV = (TextView) view.findViewById(R.id.row_belum_dibayar_nama);
-            gajiTV = (TextView) view.findViewById(R.id.row_belum_dibayar_jumlah);
+            nameTV = (TextView) view.findViewById(R.id.row_sudah_dibayar_nama);
+            gajiTV = (TextView) view.findViewById(R.id.row_sudah_dibayar_sub);
             editBtn = (ImageButton) view.findViewById(R.id.row_pegawai_edit_btn);
         }
 

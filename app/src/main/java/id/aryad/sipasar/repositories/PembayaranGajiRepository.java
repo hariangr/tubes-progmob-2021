@@ -60,6 +60,18 @@ public class PembayaranGajiRepository {
         return _res;
     }
 
+    public List<PembayaranGaji> getPembayaranGajiPaidByMonthYear(int month, int year) {
+        List<PembayaranGaji> _res = new ArrayList<>();
+
+        for (PembayaranGaji it : pembayaranDatasets) {
+            if (it.getTanggal_bayar().getMonth() == month && it.getTanggal_bayar().getYear() == year) {
+                _res.add(it);
+            }
+        }
+
+        return _res;
+    }
+
     private static PembayaranGajiRepository single_instance = null;
 
     public static PembayaranGajiRepository getInstance() {

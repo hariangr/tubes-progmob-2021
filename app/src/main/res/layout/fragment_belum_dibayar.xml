@@ -1,12 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.main.BelumDibayarFragment">
 
+    <TextView
+        android:id="@+id/belumDibayarEmpty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="Semua sudah dibayar!"
+        android:textAlignment="center"
+        android:visibility="invisible"
+        tools:visibility="invisible" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/belum_dibayar_rv"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-</FrameLayout>
+
+</RelativeLayout>

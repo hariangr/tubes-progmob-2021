@@ -41,6 +41,10 @@ public class BayarGajiActivity extends AppCompatActivity {
         sectionsPagerAdapter.monthDateUpdated();
     }
 
+    public void updatePaid() {
+        sectionsPagerAdapter.updatePaid();
+    }
+
     public int getSelectedMonth() {
         return selectedMonth;
     }

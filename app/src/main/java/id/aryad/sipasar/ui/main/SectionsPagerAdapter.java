@@ -26,6 +26,10 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         terbayarFragment.monthYearUpdated();
     }
 
+    public void updatePaid() {
+        terbayarFragment.forceUpdate();
+    }
+
     public SectionsPagerAdapter(Context context, FragmentManager fm) {
         super(fm);
         mContext = context;

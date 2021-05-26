@@ -25,7 +25,7 @@
             android:paddingBottom="14dp">
 
             <TextView
-                android:id="@+id/row_belum_dibayar_nama"
+                android:id="@+id/row_sudah_dibayar_nama"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
@@ -35,7 +35,7 @@
                 android:textStyle="bold"></TextView>
 
             <TextView
-                android:id="@+id/row_belum_dibayar_jumlah"
+                android:id="@+id/row_sudah_dibayar_sub"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Gaji"></TextView>

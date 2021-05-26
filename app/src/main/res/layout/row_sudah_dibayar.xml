@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    card_view:cardCornerRadius="6dp"
+    card_view:cardElevation="3dp"
+    android:paddingEnd="8dp"
+    android:paddingStart="8dp"
+    card_view:cardUseCompatPadding="true"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:orientation="vertical"
+        android:padding="12dp">
+
+        <TextView
+            android:id="@+id/row_sudah_dibayar_nama"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:paddingBottom="4dp"
+            android:text="Nama Pegawai"
+            android:textSize="20sp"
+            android:textStyle="bold"></TextView>
+
+        <TextView
+            android:id="@+id/row_sudah_dibayar_sub"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Gaji"
+            android:textSize="16sp"></TextView>
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

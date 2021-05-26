@@ -4,12 +4,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import id.aryad.sipasar.R;
@@ -35,8 +33,8 @@ public class BelumDibayarRecyclerView extends RecyclerView.Adapter<BelumDibayarR
         public ViewHolder(View view) {
             super(view);
 
-            title = (TextView) view.findViewById(R.id.row_belum_dibayar_nama);
-            sub = (TextView) view.findViewById(R.id.row_belum_dibayar_jumlah);
+            title = (TextView) view.findViewById(R.id.row_sudah_dibayar_nama);
+            sub = (TextView) view.findViewById(R.id.row_sudah_dibayar_sub);
             btn = (Button) view.findViewById(R.id.row_belum_dibayar_btn_bayar);
         }
 

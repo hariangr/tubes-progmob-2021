@@ -14,7 +14,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -43,6 +46,7 @@ import id.aryad.sipasar.ui.dialog.YearMonthDialog;
 public class BelumDibayarFragment extends Fragment {
     private RecyclerView belumDibayarRv;
     private BelumDibayarRecyclerView adapter;
+    private TextView emptyNotice;
 
     private List<Pegawai> pegawaiBelumGajian;
 
@@ -59,6 +63,14 @@ public class BelumDibayarFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
+    private void updateEmptyIndicator() {
+        if (pegawaiBelumGajian.size() == 0) {
+            emptyNotice.setVisibility(View.VISIBLE);
+        } else {
+            emptyNotice.setVisibility(View.INVISIBLE);
+        }
+    }
+
     private void forceUpdate() {
         int month = ((BayarGajiActivity) getActivity()).getSelectedMonth();
         int year = ((BayarGajiActivity) getActivity()).getSelectedYear();
@@ -67,17 +79,18 @@ public class BelumDibayarFragment extends Fragment {
         createAdapter();
         belumDibayarRv.setAdapter(adapter);
         belumDibayarRv.invalidate();
+        updateEmptyIndicator();
     }
 
     public void monthYearUpdated() {
         try {
             forceUpdate();
         } catch (Exception err) {
-
+            // Ignore
         }
     }
 
-    void createAdapter() {
+    private void createAdapter() {
         int month = ((BayarGajiActivity) getActivity()).getSelectedMonth();
         int year = ((BayarGajiActivity) getActivity()).getSelectedYear();
 
@@ -92,6 +105,8 @@ public class BelumDibayarFragment extends Fragment {
                             PembayaranGajiRepository.getInstance().pay(pegawai.getId_pegawai(), new Date(year, month, 1), nilaiGaji);
                             adapter.notifyDataSetChanged();
                             forceUpdate();
+
+                            ((BayarGajiActivity) getActivity()).updatePaid();
 
                             Toast.makeText(getContext(), "Pembayaran berhasil", Toast.LENGTH_SHORT).show();
                         }
@@ -120,6 +135,7 @@ public class BelumDibayarFragment extends Fragment {
         int year = ((BayarGajiActivity) getActivity()).getSelectedYear();
 
         belumDibayarRv = (RecyclerView) v.findViewById(R.id.belum_dibayar_rv);
+        emptyNotice = (TextView) v.findViewById(R.id.belumDibayarEmpty);
 
         pegawaiBelumGajian = PembayaranGajiRepository.getInstance().unpaidByMonthYear(month, year);
 
@@ -127,6 +143,7 @@ public class BelumDibayarFragment extends Fragment {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         belumDibayarRv.setLayoutManager(layoutManager);
         belumDibayarRv.setAdapter(adapter);
+        updateEmptyIndicator();
 
         return v;
     }
