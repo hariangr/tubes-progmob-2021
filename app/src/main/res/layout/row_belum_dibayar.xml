@@ -16,35 +16,36 @@
         android:orientation="horizontal">
 
         <LinearLayout
-            android:paddingStart="8dp"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingStart="14dp"
+            android:paddingTop="14dp"
+            android:paddingBottom="14dp">
 
             <TextView
-                android:ellipsize="end"
                 android:id="@+id/row_belum_dibayar_nama"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:paddingBottom="4dp"
                 android:text="Nama Pegawai"
-                android:textSize="16sp"
+                android:textSize="20sp"
                 android:textStyle="bold"></TextView>
 
             <TextView
                 android:id="@+id/row_belum_dibayar_jumlah"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Gaji"
-                android:textColor="@android:color/holo_red_dark"></TextView>
+                android:text="Gaji"></TextView>
         </LinearLayout>
 
         <Button
             android:id="@+id/row_belum_dibayar_btn_bayar"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginTop="2dp"
             android:layout_marginRight="8dp"
             android:layout_marginBottom="2dp"

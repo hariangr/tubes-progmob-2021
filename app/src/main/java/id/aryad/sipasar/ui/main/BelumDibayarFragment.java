@@ -1,5 +1,7 @@
 package id.aryad.sipasar.ui.main;
 
+import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -10,17 +12,28 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import id.aryad.sipasar.BayarGajiActivity;
+import id.aryad.sipasar.DetailHistoryGajiActivity;
 import id.aryad.sipasar.R;
+import id.aryad.sipasar.constants.IntentKey;
+import id.aryad.sipasar.models.HistoryGajiPegawai;
 import id.aryad.sipasar.models.Pegawai;
+import id.aryad.sipasar.repositories.HistoryGajiRepository;
 import id.aryad.sipasar.repositories.PembayaranGajiRepository;
 import id.aryad.sipasar.ui.adapter.BelumDibayarRecyclerView;
+import id.aryad.sipasar.ui.adapter.BelumDibayarRecyclerViewCallback;
 import id.aryad.sipasar.ui.adapter.PegawaiRecyclerViewCallback;
+import id.aryad.sipasar.ui.dialog.DoPayCallback;
+import id.aryad.sipasar.ui.dialog.DoPayDialog;
+import id.aryad.sipasar.ui.dialog.YearMonthDialog;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -46,30 +59,54 @@ public class BelumDibayarFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
+    private void forceUpdate() {
+        int month = ((BayarGajiActivity) getActivity()).getSelectedMonth();
+        int year = ((BayarGajiActivity) getActivity()).getSelectedYear();
+
+        pegawaiBelumGajian = PembayaranGajiRepository.getInstance().unpaidByMonthYear(month, year);
+        createAdapter();
+        belumDibayarRv.setAdapter(adapter);
+        belumDibayarRv.invalidate();
+    }
+
     public void monthYearUpdated() {
         try {
-            int month = ((BayarGajiActivity) getActivity()).getSelectedMonth();
-            int year = ((BayarGajiActivity) getActivity()).getSelectedYear();
-
-            pegawaiBelumGajian = PembayaranGajiRepository.getInstance().unpaidByMonthYear(month, year);
-            createAdapter();
-            belumDibayarRv.setAdapter(adapter);
-            belumDibayarRv.invalidate();
+            forceUpdate();
         } catch (Exception err) {
 
         }
     }
 
     void createAdapter() {
-        adapter = new BelumDibayarRecyclerView(pegawaiBelumGajian, new PegawaiRecyclerViewCallback() {
+        int month = ((BayarGajiActivity) getActivity()).getSelectedMonth();
+        int year = ((BayarGajiActivity) getActivity()).getSelectedYear();
+
+        adapter = new BelumDibayarRecyclerView(pegawaiBelumGajian, new BelumDibayarRecyclerViewCallback() {
             @Override
-            public void onEditClicked(Pegawai pegawai, int position) {
+            public void onPayClicked(Pegawai pegawai, int position, boolean isPayable) {
+                if (isPayable) {
+                    DoPayDialog pd = new DoPayDialog(pegawai, month, year, new DoPayCallback() {
+                        @Override
+                        public void okClicked() {
+                            int nilaiGaji = HistoryGajiRepository.getInstance().getCurrentHistoryGajiByPegawaiId(pegawai.getId_pegawai()).getNilai_gaji();
+                            PembayaranGajiRepository.getInstance().pay(pegawai.getId_pegawai(), new Date(year, month, 1), nilaiGaji);
+                            adapter.notifyDataSetChanged();
+                            forceUpdate();
 
-            }
+                            Toast.makeText(getContext(), "Pembayaran berhasil", Toast.LENGTH_SHORT).show();
+                        }
 
-            @Override
-            public void onDeleteClicked(Pegawai pegawai, int position) {
+                        @Override
+                        public void cancelClicked() {
 
+                        }
+                    });
+                    pd.show(getActivity().getSupportFragmentManager(), "Konfirmasi Pembayaran Gaji");
+                } else {
+                    Intent _intent = new Intent(getContext(), DetailHistoryGajiActivity.class);
+                    _intent.putExtra(IntentKey.ID_PEGAWAI_DETAIL_ACTIVITY, pegawai.getId_pegawai());
+                    startActivity(_intent);
+                }
             }
         });
     }

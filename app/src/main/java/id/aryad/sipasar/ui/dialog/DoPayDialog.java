@@ -61,7 +61,7 @@ public class DoPayDialog extends DialogFragment {
         jumlah.getEditText().setText(NumberHelperRepository.getInstance().asRpString(__jumlah));
 
         builder.setView(dialog)
-                .setPositiveButton("Pilih", new DialogInterface.OnClickListener() {
+                .setPositiveButton("Bayar", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         callback.okClicked();

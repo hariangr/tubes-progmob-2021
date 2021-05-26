@@ -5,7 +5,30 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
+    android:padding="12dp"
     tools:context=".ui.dialog.YearMonthDialog">
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="12dp"
+        android:paddingTop="12dp"
+        android:paddingEnd="12dp"
+        android:paddingRight="12dp"
+        android:paddingBottom="0dp"
+        android:text="Konfirmasi Pembayaran"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="12dp"
+        android:paddingEnd="12dp"
+        android:paddingRight="12dp"
+        android:text="Lakukan Pembayaran Kepada Pegawai Berikut?" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/dopay_nama"

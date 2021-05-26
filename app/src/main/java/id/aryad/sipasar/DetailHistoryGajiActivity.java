@@ -40,7 +40,7 @@ public class DetailHistoryGajiActivity extends AppCompatActivity {
 
         HistoryGajiPegawai gajiAktif = HistoryGajiRepository.getInstance().getCurrentHistoryGajiByPegawaiId(pegawai.getId_pegawai());
         if (gajiAktif == null ) {
-            currentGajiET.getEditText().setText("Tidak ada gaji aktif");
+            currentGajiET.getEditText().setText("Tidak ada periode gaji aktif");
         } else {
             int nilaiGajiAktif = gajiAktif.getNilai_gaji();
             currentGajiET.getEditText().setText(NumberHelperRepository.getInstance().asRpString(nilaiGajiAktif, false));

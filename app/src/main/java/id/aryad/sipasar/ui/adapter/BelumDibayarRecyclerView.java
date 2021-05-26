@@ -3,6 +3,7 @@ package id.aryad.sipasar.ui.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -18,7 +19,7 @@ import id.aryad.sipasar.repositories.HistoryGajiRepository;
 import id.aryad.sipasar.repositories.NumberHelperRepository;
 
 public class BelumDibayarRecyclerView extends RecyclerView.Adapter<BelumDibayarRecyclerView.ViewHolder> {
-    private PegawaiRecyclerViewCallback _callback;
+    private BelumDibayarRecyclerViewCallback _callback;
     private List<Pegawai> _pegawais;
 
     /**
@@ -26,33 +27,42 @@ public class BelumDibayarRecyclerView extends RecyclerView.Adapter<BelumDibayarR
      * (custom ViewHolder).
      */
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private final TextView nameTV;
-        private final TextView gajiTV;
-        private final ImageButton editBtn;
+        private final TextView title;
+        private final TextView sub;
+        private final Button btn;
+        private boolean isPayable;
 
         public ViewHolder(View view) {
             super(view);
-            // Define click listener for the ViewHolder's View
 
-            nameTV = (TextView) view.findViewById(R.id.row_belum_dibayar_nama);
-            gajiTV = (TextView) view.findViewById(R.id.row_belum_dibayar_jumlah);
-            editBtn = (ImageButton) view.findViewById(R.id.row_pegawai_edit_btn);
+            title = (TextView) view.findViewById(R.id.row_belum_dibayar_nama);
+            sub = (TextView) view.findViewById(R.id.row_belum_dibayar_jumlah);
+            btn = (Button) view.findViewById(R.id.row_belum_dibayar_btn_bayar);
         }
 
-        public TextView getGajiTV() {
-            return gajiTV;
+
+        public boolean isPayable() {
+            return isPayable;
         }
 
-        public TextView getNameTV() {
-            return nameTV;
+        public TextView getTitle() {
+            return title;
         }
 
-        public ImageButton getEditBtn() {
-            return editBtn;
+        public void setPayable(boolean payable) {
+            isPayable = payable;
+        }
+
+        public TextView getSub() {
+            return sub;
+        }
+
+        public Button getBtn() {
+            return btn;
         }
     }
 
-    public BelumDibayarRecyclerView(List<Pegawai> dataSet, PegawaiRecyclerViewCallback callback) {
+    public BelumDibayarRecyclerView(List<Pegawai> dataSet, BelumDibayarRecyclerViewCallback callback) {
         _pegawais = dataSet;
         _callback = callback;
     }
@@ -60,7 +70,7 @@ public class BelumDibayarRecyclerView extends RecyclerView.Adapter<BelumDibayarR
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         View view = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.row_pegawai, viewGroup, false);
+                .inflate(R.layout.row_belum_dibayar, viewGroup, false);
 
         return new ViewHolder(view);
     }
@@ -68,20 +78,27 @@ public class BelumDibayarRecyclerView extends RecyclerView.Adapter<BelumDibayarR
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
         Pegawai pegawai = _pegawais.get(position);
-        viewHolder.getNameTV().setText(pegawai.getNama_pegawai());
+
+        boolean isPayable;
 
         HistoryGajiPegawai currentGaji = HistoryGajiRepository.getInstance().getCurrentHistoryGajiByPegawaiId(pegawai.getId_pegawai());
+        viewHolder.getTitle().setText(pegawai.getNama_pegawai());
         if (currentGaji != null) {
-            viewHolder.getGajiTV().setText(NumberHelperRepository.getInstance().asRpString(currentGaji.getNilai_gaji()));
+            viewHolder.getSub().setText(NumberHelperRepository.getInstance().asRpString(currentGaji.getNilai_gaji()));
+            isPayable = true;
+            viewHolder.getBtn().setText("Bayar");
         } else {
-            viewHolder.getGajiTV().setText("Tidak ada periode gaji aktif");
+            isPayable = false;
+            viewHolder.getSub().setText("Tidak ada periode gaji aktif");
+            viewHolder.setPayable(false);
+            viewHolder.getBtn().setText("Atur Gaji");
         }
 
-        viewHolder.getEditBtn().setOnClickListener(new View.OnClickListener() {
+        viewHolder.getBtn().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Pegawai it = _pegawais.get(position);
-                _callback.onEditClicked(it, position);
+                _callback.onPayClicked(it, position, isPayable);
             }
         });
     }
