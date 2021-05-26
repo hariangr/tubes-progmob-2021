@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import id.aryad.sipasar.R;
@@ -16,7 +17,7 @@ import id.aryad.sipasar.models.Pegawai;
 import id.aryad.sipasar.repositories.HistoryGajiRepository;
 import id.aryad.sipasar.repositories.NumberHelperRepository;
 
-public class PegawaiRecyclerView extends RecyclerView.Adapter<PegawaiRecyclerView.ViewHolder> {
+public class BelumDibayarRecyclerView extends RecyclerView.Adapter<BelumDibayarRecyclerView.ViewHolder> {
     private PegawaiRecyclerViewCallback _callback;
     private List<Pegawai> _pegawais;
 
@@ -51,7 +52,7 @@ public class PegawaiRecyclerView extends RecyclerView.Adapter<PegawaiRecyclerVie
         }
     }
 
-    public PegawaiRecyclerView(List<Pegawai> dataSet, PegawaiRecyclerViewCallback callback) {
+    public BelumDibayarRecyclerView(List<Pegawai> dataSet, PegawaiRecyclerViewCallback callback) {
         _pegawais = dataSet;
         _callback = callback;
     }

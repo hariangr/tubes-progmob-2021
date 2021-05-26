@@ -37,14 +37,18 @@
                 android:id="@+id/row_belum_dibayar_jumlah"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Gaji"></TextView>
+                android:text="Gaji"
+                android:textColor="@android:color/holo_red_dark"></TextView>
         </LinearLayout>
 
-        <ImageButton
-            android:id="@+id/row_pegawai_edit_btn"
+        <Button
+            android:id="@+id/row_belum_dibayar_btn_bayar"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            card_view:srcCompat="@drawable/ic_baseline_edit_24" />
+            android:layout_marginTop="2dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="2dp"
+            android:text="Bayar" />
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

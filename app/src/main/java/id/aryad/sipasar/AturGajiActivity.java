@@ -31,8 +31,6 @@ public class AturGajiActivity extends AppCompatActivity {
         pegawaiAdapter = new PegawaiRecyclerView(PegawaiRepository.getInstance().getAll(), new PegawaiRecyclerViewCallback() {
             @Override
             public void onEditClicked(Pegawai pegawai, int position) {
-//                PegawaiRepository.getInstance().deleteById(pegawai.getId_pegawai());
-//                pegawaiAdapter.notifyDataSetChanged();
                 Intent _intent = new Intent(getApplicationContext(),DetailHistoryGajiActivity.class);
                 _intent.putExtra(IntentKey.ID_PEGAWAI_DETAIL_ACTIVITY, pegawai.getId_pegawai());
                 startActivity(_intent);

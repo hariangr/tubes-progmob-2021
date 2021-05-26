@@ -18,6 +18,14 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     private static final String[] TAB_TITLES = new String[]{"Belum Dibayar", "Terbayar"};
     private final Context mContext;
 
+    private BelumDibayarFragment belumDibayarFragment = BelumDibayarFragment.newInstance("", "");
+    private TerbayarFragment terbayarFragment = TerbayarFragment.newInstance();
+
+    public void monthDateUpdated() {
+        belumDibayarFragment.monthYearUpdated();
+        terbayarFragment.monthYearUpdated();
+    }
+
     public SectionsPagerAdapter(Context context, FragmentManager fm) {
         super(fm);
         mContext = context;
@@ -25,9 +33,14 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        // getItem is called to instantiate the fragment for the given page.
-        // Return a PlaceholderFragment (defined as a static inner class below).
-        return PlaceholderFragment.newInstance(position + 1);
+        switch (position) {
+            case 0:
+                return belumDibayarFragment;
+            case 1:
+                return terbayarFragment;
+            default:
+                return null;
+        }
     }
 
     @Nullable
